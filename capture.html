@@ -1,0 +1,306 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Capture Image</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="pics/banger.png" type="image/gif" sizes="16x16" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/HomePageCss.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!----capture-------
+    <h1>Capture Image</h1>
+    <input type="file" accept="image/*" id="file-input" />
+    <br />
+    <video id="live-camera" width="640" height="480" autoplay></video>
+    <br />
+    <button id="capture-button">Capture Image</button>
+    <canvas id="captured-image" style="display: none"></canvas>
+    <br />
+    <button id="process-button" style="display: none">Process and Show</button>
+    ---------------->
+    <!---------------added-------------->
+    <div class="top-container">
+      <div style="overflow: hidden; background-color: white">
+        <image
+          src="/static/images/logo.png"
+          style="width: 50px; height: auto"
+        ></image>
+        <h1 style="display: inline-block; margin: 0">
+          Virtual Try-On
+          <div style="text-align: left">
+            <span style="display: block; font-size: 18px; color: #888"
+              >Find Your Style</span
+            >
+          </div>
+        </h1>
+        <!---<a
+          href="signUpUser.html"
+          style="
+            float: right;
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+          "
+          >Sign-up</a
+        >-->
+        <a
+        href="{{ url_for('capture') }}"
+          style="
+            float: right;
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+          "
+          >Try On Using CNN</a
+        >
+
+        <a
+          class="active"
+          href="index.html"
+          style="
+            float: right;
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+          "
+          >Home</a
+        >
+        <h1 style="text-align: center">Try-On Using CNN</h1>
+      </div>
+      <div
+      class="parent"
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 10px;
+      "
+    >
+    
+    <video id="live-camera" width="640" height="480" autoplay></video>
+    <div style="flex: 1; padding: 0 20px">
+
+    <span class="login100-form-title p-b-34" style="font-size: 24px">
+        Save Image
+      </span>
+      <p style="margin-bottom: 20px">
+        Please make sure your face is visible and aligned within the
+        frame before capturing the image.
+      </p>
+        
+    
+    <button id="capture-button"
+    style="background-color: #4caf50; color: white; padding: 10px 20px; border: none;
+                  border-radius: 5px;
+                  margin-right: 10px;">Capture</button>
+                  <button
+                  style="
+                    background-color: #2196f3;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    margin-right: 10px;
+                  "
+                >
+                  <input type="file" accept="image/*" id="file-input" />
+                </button>
+</div>
+</div>
+
+    <canvas id="captured-image" style="display: none"></canvas>
+              <br />
+              <button
+                id="process-button"
+                style="
+                  display: none;
+
+                  background-color: #ff5722;
+                  color: white;
+                  padding: 10px 20px;
+                  border: none;
+                  border-radius: 5px;
+                "
+              >
+                Proceed and Show
+              </button>
+              
+            
+          
+        </div>
+
+        
+      </div>
+    </div>
+    
+
+    <footer
+      style="
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        position: relative;
+        bottom: 0;
+        width: auto;
+      "
+    >
+      <p>
+        <a
+          href="https://www.facebook.com/"
+          style="color: white; text-decoration: none; margin: 0 10px"
+          ><i class="fab fa-facebook"></i
+        ></a>
+        <a
+          href="https://www.instagram.com/"
+          style="color: white; text-decoration: none; margin: 0 10px"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a
+          href="https://twitter.com/"
+          style="color: white; text-decoration: none; margin: 0 10px"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <!-- Add more social media icons as needed-->
+        <a
+          href="/assistance"
+          style="color: white; text-decoration: none; margin: 0 10px"
+          >Assistance</a
+        >
+        |
+        <a
+          href="/faq"
+          style="color: white; text-decoration: none; margin: 0 10px"
+          >FAQ</a
+        >
+        |
+        <a
+          href="/blog"
+          style="color: white; text-decoration: none; margin: 0 10px"
+          >Blog</a
+        >
+      </p>
+      <p>&copy; 2023 Virtual Try-On. All rights reserved.</p>
+    </footer>
+    <!-------------------upto this-------------->
+
+    <script>
+      const video = document.getElementById("live-camera");
+      const canvas = document.getElementById("captured-image");
+      const captureButton = document.getElementById("capture-button");
+      const processButton = document.getElementById("process-button");
+      const fileInput = document.getElementById("file-input");
+
+      // Function to handle user-selected file
+      fileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          // Display the selected image on the canvas
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = new Image();
+            img.onload = function () {
+              canvas.width = img.width;
+              canvas.height = img.height;
+              canvas
+                .getContext("2d")
+                .drawImage(img, 0, 0, img.width, img.height);
+
+              // Show the canvas and the process button
+              canvas.style.display = "block";
+              processButton.style.display = "block";
+            };
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then((stream) => {
+          video.srcObject = stream;
+        })
+        .catch((error) => {
+          console.error("Error accessing the camera:", error);
+        });
+
+      captureButton.addEventListener("click", () => {
+        // Capture current video frame and display it on the canvas
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas
+          .getContext("2d")
+          .drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Show the canvas and the process button
+        canvas.style.display = "block";
+        processButton.style.display = "block";
+      });
+
+      processButton.addEventListener("click", () => {
+        // Convert the canvas content to a data URL
+        const imageData = canvas.toDataURL("image/png");
+
+        // Create a blob from the data URL and append it to a FormData object
+        const blob = dataURItoBlob(imageData);
+        const formData = new FormData();
+        formData.append("image", blob, "captured_image.png");
+
+        // Send the FormData object to the server for processing
+        fetch("/process_and_show", {
+          method: "POST",
+          body: formData,
+        })
+          .then(
+            alert("Processing Image, Wait for the change to happen... Click OK")
+          )
+          .then((response) => {
+            if (response.ok) {
+              window.location.href = "/result"; // Redirect to the /result page
+            } else {
+              throw new Error("Error processing image");
+            }
+          })
+          .catch((error) => {
+            console.error("Error processing image:", error);
+          });
+      });
+
+      // Helper function to convert data URI to blob
+      function dataURItoBlob(dataURI) {
+        const byteString = atob(dataURI.split(",")[1]);
+        const mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], { type: mimeString });
+      }
+    </script>
+  </body>
+</html>
